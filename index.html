@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Axolotl LOC Gene ID Resolver - Currie Lab</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="#" class="lab-brand">Currie Lab Tools</a>
+    <div class="main-tabs">
+      <button class="main-tab active">LOC ID Resolver</button>
+    </div>
+  </nav>
+
+  <div class="tool-container">
+    <header class="tool-header">
+      <h1>Axolotl LOC Gene ID Resolver</h1>
+      <p>
+        Convert unannotated axolotl gene IDs (LOC…) into their descriptive names
+        from the NCBI reference genome.
+      </p>
+    </header>
+
+    <div class="tool-content">
+      <section class="panel">
+        <h2>1. Provide gene IDs</h2>
+
+        <label for="idInput" class="field-label">
+          Paste IDs (one per line, comma-separated, or any text — LOC IDs are
+          auto-extracted)
+        </label>
+        <textarea
+          id="idInput"
+          rows="6"
+          placeholder="LOC138567407&#10;LOC100135789&#10;LOC100489040"
+        ></textarea>
+
+        <div class="or-divider"><span>or</span></div>
+
+        <label for="fileInput" class="field-label">Upload a .txt or .csv file</label>
+        <label id="dropZone" for="fileInput" class="drop-zone">
+          <svg class="drop-icon" viewBox="0 0 24 24" width="42" height="42" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="17 8 12 3 7 8" />
+            <line x1="12" y1="3" x2="12" y2="15" />
+          </svg>
+          <div class="drop-zone-text">
+            <strong>Drag &amp; drop</strong> a file here, or <span class="drop-zone-link">click to browse</span>
+          </div>
+          <div class="drop-zone-hint">Accepts .txt or .csv</div>
+          <input
+            type="file"
+            id="fileInput"
+            accept=".txt,.csv,text/plain,text/csv"
+            class="drop-zone-input"
+          />
+        </label>
+        <p id="fileStatus" class="file-status"></p>
+
+        <div class="actions">
+          <button id="convertBtn">Resolve gene names</button>
+          <button id="clearBtn" class="secondary">Clear</button>
+        </div>
+      </section>
+
+      <section id="resultsSection" class="panel hidden">
+        <div class="results-header">
+          <h2>2. Results</h2>
+          <button id="downloadBtn">Download CSV</button>
+        </div>
+
+        <div id="progress" class="progress hidden">
+          <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+          <p id="progressText" class="progress-text"></p>
+        </div>
+
+        <p id="summary" class="summary"></p>
+
+        <div class="table-wrapper">
+          <table id="resultsTable">
+            <thead>
+              <tr>
+                <th>LOC Gene ID</th>
+                <th>Gene Name</th>
+                <th>NCBI Link</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer class="tool-footer">
+        Data source:
+        <a href="https://www.ncbi.nlm.nih.gov/gene/" target="_blank" rel="noopener">
+          NCBI Gene
+        </a>
+        via E-utilities. Designed for <em>Ambystoma mexicanum</em> (axolotl) LOC
+        identifiers, but will resolve any NCBI Gene ID.
+      </footer>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
